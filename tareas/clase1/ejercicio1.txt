@@ -1,0 +1,23 @@
+Tenemos una venta de Autos 0KM donde se pide por consola
+los datos del suscriptor y el modelo a comprar.
+luego escribir en sql la suscripcion
+
+var suscriptor = readLine()
+var modelo = readLine()
+
+try {
+   if (hora between) {
+      String str = new Gson().toJson(estrucutraModeloSuscriptor)
+      writeFile(str)     
+      return 
+   }
+   conexion()
+   getStatement()
+   execute('.....')
+}
+catch (Exception ex) {
+   String str = new Gson().toJson(estrucutraModeloSuscriptor)
+   writeFile(str)
+}
+
+
