@@ -1,0 +1,30 @@
+Supongamos que tenemos varias cajitas en HTML
+
+Una de las cajas tiene un input text
+
+Todas las cajas la del input text y las demas, van a tener
+una clase asociada.
+
+cada vez que ingreso un 'input' al input text este va a 
+notificar a todos los observers
+
+La base de esto es:
+
+Class Productora {
+   arr:Observable[] observers
+   addObserver() {
+   }
+   init() {
+      recorrer los observers, y notificar
+   }
+}
+
+cada observer, va a implementar una interfaz 
+
+interface Observable {
+   notify = (String) => void
+}
+
+Esto implementarlo, pero la idea es llevarlo a algo sincronico y luego
+asincronico.
+
