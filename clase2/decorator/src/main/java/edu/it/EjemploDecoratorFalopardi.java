@@ -22,6 +22,20 @@ class AgregaAsteriscos implements MuestraAlgo {
 	}
 }
 
+class AgregaSUERTE implements MuestraAlgo {
+	private MuestraAlgo muestraAlgo;
+
+	public AgregaSUERTE(MuestraAlgo muestraAlgo) {
+		this.muestraAlgo = muestraAlgo;
+	}
+	public void mostrar(Integer x) {
+		System.out.print("EXITO!!! ");
+		muestraAlgo.mostrar(x);
+	}
+}
+
+
+
 public class EjemploDecoratorFalopardi {
 	MuestraNumero mn = new MuestraNumero();
 	AgregaAsteriscos aa = new AgregaAsteriscos(mn);
@@ -34,6 +48,13 @@ public class EjemploDecoratorFalopardi {
 			}
 			else {
 				interfaz = aa;
+			}
+			
+			if (x == 13) {
+				interfaz = new AgregaSUERTE(interfaz);
+			}
+			if (x == 18) {
+				interfaz = new AgregaSUERTE(interfaz);
 			}
 			
 			/*********

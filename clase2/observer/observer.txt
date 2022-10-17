@@ -1,0 +1,19 @@
+class produceInfo {
+   Observador[] observadores = new Observador[]
+   // Siempre es stateFull
+
+   public void agregarObservador(Observer observer) {
+     // lo agrego a la lista de observadores
+   }
+   public void iniciarServicio() {
+     ...
+     for (Observador o : observadores) {
+        o.notify(miEstadoActual)
+     }
+     ...
+   }
+}
+
+QUE PERMITE ESTO ?????????
+
+Permite testear independientemente cada observador
