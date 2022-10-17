@@ -6,7 +6,9 @@ public class App {
     public static void main(String[] args) throws Exception {
         System.out.println("Curso patrones - Bienvenidos");
         
-        var z = Factory.obtenerLectorSuscriptor().leer();
-        Factory.obtenerGrabadorSuscriptor().grabar(z);
+        //var z = Factory.obtenerLectorSuscriptor().leer();
+        //Factory.obtenerEstrategiaGrabadorSuscriptor().grabar(z);
+        
+        new EjemploDecoratorFalopardi().run();
     }
 }
