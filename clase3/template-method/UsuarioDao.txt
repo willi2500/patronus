@@ -1,0 +1,77 @@
+package edu.it.daos;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.it.model.UsuarioDTO;
+
+public class UsuarioDao extends DaoTemplate<UsuarioDTO> {
+	public UsuarioDao(Connection conn) {
+		super(conn);
+	}
+	protected String obtenerSelectGenericoConWhere() {
+		return "SELECT * FROM " + obtenerNombreTabla() + " WHERE ";
+	} 
+	protected String obtenerNombreTabla() {
+		return "usuarios";
+	}
+	protected UsuarioDTO mappearRecordToDTO(ResultSet rs) {
+		UsuarioDTO usuDTO = new UsuarioDTO();
+		try {
+			usuDTO.id = rs.getString("id");
+			usuDTO.nombre = rs.getString("nombre");
+			usuDTO.apellido = rs.getString("apellido");
+			usuDTO.domicilio = rs.getString("domicilio");
+			usuDTO.pais = rs.getString("pais");
+			usuDTO.saldoCuenta = rs.getInt("saldo_cuenta");
+		}
+		catch (Exception ex) {
+			throw new RuntimeException(ex.getMessage());
+		}
+		return usuDTO;
+	}
+	protected List<String> obtenerListaParamsInsert() {
+		ArrayList<String> arr = new ArrayList<>();
+
+		arr.add("id");
+		arr.add("nombre");
+		arr.add("apellido");
+		arr.add("domicilio");
+		arr.add("pais");
+		arr.add("saldo_cuenta");
+		
+		return arr;
+	}
+	protected String obtenerListaParamsUpdate() {
+		return " nombre = ?, apellido = ?, domicilio = ?, pais = ?, saldo_cuenta = ?"; 
+	}
+	protected void mappearInsert(PreparedStatement ps, UsuarioDTO usuario) {
+		try {
+			ps.setString(1, usuario.id);
+			ps.setString(2, usuario.nombre);
+			ps.setString(3, usuario.apellido);
+			ps.setString(4, usuario.domicilio);
+			ps.setString(5, usuario.pais);
+			ps.setInt(6, usuario.saldoCuenta);
+		}
+		catch (Exception ex) {
+			throw new RuntimeException(ex.getMessage());
+		}
+	} 
+	protected void mappearUpdate(PreparedStatement ps, UsuarioDTO usuario) {
+		try {
+			ps.setString(1, usuario.nombre);
+			ps.setString(2, usuario.apellido);
+			ps.setString(3, usuario.domicilio);
+			ps.setString(4, usuario.pais);
+			ps.setInt(5, usuario.saldoCuenta);
+			ps.setString(6, usuario.id);
+		}
+		catch (Exception ex) {
+			throw new RuntimeException(ex.getMessage());
+		}
+	}
+}

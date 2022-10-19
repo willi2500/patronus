@@ -1,0 +1,60 @@
+package edu.it.daos;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Arrays;
+import java.util.List;
+
+public class MovimientoDao extends DaoTemplate<MovimientoDTO> {
+	public MovimientoDao(Connection conn) {
+		super(conn);
+	}
+	@Override
+	protected String obtenerSelectGenericoConWhere() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected String obtenerNombreTabla() {
+		// TODO Auto-generated method stub
+		return "movimientos";
+	}
+
+	@Override
+	protected MovimientoDTO mappearRecordToDTO(ResultSet rs) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected List<String> obtenerListaParamsInsert() {
+		return Arrays.asList("id", "monto", "usuario_id");
+	}
+
+	@Override
+	protected String obtenerListaParamsUpdate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected void mappearInsert(PreparedStatement ps, MovimientoDTO mov) {
+		try {
+			ps.setString(1, mov.id);
+			ps.setInt(2, mov.monto);
+			ps.setString(3, mov.usuarioId);
+		}
+		catch (Exception ex) {
+			throw new RuntimeException(ex.getMessage());
+		}
+	}
+
+	@Override
+	protected void mappearUpdate(PreparedStatement ps, MovimientoDTO t) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

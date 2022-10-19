@@ -1,0 +1,126 @@
+package edu.it.daos;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class DaoTemplate<T> {
+	private Connection conn;
+	
+	public DaoTemplate(Connection conn) {
+		this.conn = conn;
+	}
+	public List<T> find(String whereClause) {
+		List<T> rets = new ArrayList<T>();
+		
+		try {
+			StringBuilder strBld = new StringBuilder();
+			strBld.append(obtenerSelectGenericoConWhere());
+			strBld.append(whereClause);
+			
+			var ps = conn.prepareStatement(strBld.toString());
+			var rs = ps.executeQuery();
+			for (;rs.next();) {
+				rets.add(mappearRecordToDTO(rs));
+			}
+			ps.close();
+		}
+		catch (Exception ex) {
+			throw new RuntimeException(ex.getMessage());
+		}		
+		return rets;
+	}
+	public T findById(String id) {
+		T ret = null;
+		
+		try {
+			var ps = conn.prepareStatement(this.obtenerSelectGenericoConWhere() + " id = ?");
+			ps.setString(1, id);
+			var rs = ps.executeQuery();
+			
+			if (!rs.next()) {
+				throw new RuntimeException("NO EXISTE EL REGISTRO");
+			}
+			
+			ret = mappearRecordToDTO(rs);
+			ps.close();
+		}
+		catch (Exception ex) {
+			throw new RuntimeException(ex.getMessage());
+		}
+		
+		return ret;
+	}
+	public void insert(T t) {
+		try {
+			StringBuilder strBld = new StringBuilder();
+			
+			List<String> lstStr = new ArrayList<String>();
+			for (int x = 1; x <= obtenerListaParamsInsert().size(); x++) {
+				lstStr.add("?");
+			}
+			
+			strBld
+				.append("INSERT INTO " + obtenerNombreTabla())
+				.append("(")
+				.append(String.join(",", obtenerListaParamsInsert()))
+				.append(") ")
+				.append("VALUES (")
+				.append(String.join(",", lstStr))
+				.append(")");
+			
+			var ps = conn.prepareStatement(strBld.toString());
+			mappearInsert(ps, t); 
+			ps.execute();
+			ps.close();
+		}
+		catch (Exception ex) {
+			throw new RuntimeException(ex.getMessage());
+		}
+	}
+	public void update(String id, T t) {
+		try {
+			StringBuilder strBld = new StringBuilder();
+			
+			strBld
+				.append("UPDATE usuarios ")
+				.append("SET " + obtenerListaParamsUpdate() + " ")
+				.append("WHERE id = ?");
+			
+			var ps = conn.prepareStatement(strBld.toString());
+			this.mappearUpdate(ps, t);
+			
+			ps.execute();
+			ps.close();
+		}
+		catch (Exception ex) {
+			throw new RuntimeException(ex.getMessage());
+		}
+	}
+	public void delete(String id) {
+		try {
+			StringBuilder strBld = new StringBuilder();
+			
+			strBld
+				.append("DELETE FROM " + obtenerNombreTabla() + " ")
+				.append("WHERE id = ?");
+			
+			var ps = conn.prepareStatement(strBld.toString());			
+			ps.setString(1, id);
+			ps.execute();
+			ps.close();
+		}
+		catch (Exception ex) {
+			throw new RuntimeException(ex.getMessage());
+		}
+	}
+	protected abstract String obtenerSelectGenericoConWhere();
+	protected abstract String obtenerNombreTabla();
+	protected abstract T mappearRecordToDTO(ResultSet rs);
+	protected abstract List<String> obtenerListaParamsInsert();
+	protected abstract String obtenerListaParamsUpdate();
+	protected abstract void mappearInsert(PreparedStatement ps, T t); 
+	protected abstract void mappearUpdate(PreparedStatement ps, T t);
+}

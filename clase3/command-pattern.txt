@@ -1,0 +1,3 @@
+Ejemplo de Command Tickets .json tengo que subir a la base de datos.
+cuando los subo los voy a dejar un par de dias en una carpeta
+mv /source/tk.json   /intermedia/tk.json  /def/tk.json /error/tk.json

@@ -1,0 +1,6 @@
+Hacer un metodo que convierta una exception manejada en un RuntimException
+
+Dado que las exceptions manejadas se propagan, y ese concepto esta medio en desuso.
+
+Podemos hacer esa conversion a runtimeException solo con la mensaje de descripcion del error
+
