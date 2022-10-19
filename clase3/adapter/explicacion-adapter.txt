@@ -1,0 +1,46 @@
+
+class ServicioDiscador {
+   private discador = null;
+   public ServicioDiscador(Discador discador) {
+      this.discador = discador;
+   }
+   public void execute() {       
+       var llamada = discador.discar();
+       discador.emitirMensaje(llamada);
+       discador.cortar(llamada);
+   }
+}
+
+Discado queda obsoleto vamos a implementar dialerPlusPro
+los metodos que tiene son
+
+infoCall = dial()
+playMessage(infoCall)
+hangup(infoCall)
+
+
+PARA PENSAR
+
+Discador lo puedo convertir en un interfaz ???????
+
+El discador que ya tenia puedo implementar esa misma interfaz ????
+
+Puedo hacer otra implementacion de esa interfaz para adaptar el dialer plus pro ????
+
+Como seria esa otra implementacion ????
+
+Me salva esto ????
+
+
+
+
+
+
+
+
+
+
+
+
+
+
