@@ -6,10 +6,14 @@ import edu.it.model.Usuario;
 import edu.it.utiles.Util;
 
 public class ServicioDiscador implements Runnable {
+	private DiscadorDePotencia discador;
+	
+	public ServicioDiscador(DiscadorDePotencia discador) {
+		this.discador = discador;
+	}
+
 	public void run() {
 		// Codigo fulero in inteligible
-		
-		var discador = new DiscadorDePotencia();
 		
 		for (;;) {
 			Integer x = new Random().nextInt(4);
