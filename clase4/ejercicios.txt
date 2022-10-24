@@ -1,0 +1,58 @@
+Un solo archivo.
+
+Template
+
+Tener dos derivaciones 
+
+1) Stateless
+2) Statefull
+
+from abc import ABC, abstractmethod
+
+
+class AbstractCustomTemplate(ABC):
+    def template_method(self) -> None:
+        self.operacion_base_uno()
+        self.operacion_requerida()
+        self.operacion_base_dos()
+
+    def operacion_base_uno(self) -> None:
+        print("Template Abstracto UNO")
+
+    def operacion_base_dos(self) -> None:
+        print("Template Abstracto DOS")
+
+    @abstractmethod
+    def operacion_requerida(self) -> None:
+        pass
+
+
+class TemplateImplementationStateless(AbstractCustomTemplate):
+
+    def operacion_requerida(self) -> None:
+        print("Implementacion stateless")
+
+
+class TemplateImplementationStateFull(AbstractCustomTemplate):
+
+    state: str
+
+    def __init__(self, state: str) -> None:
+        super().__init__()
+        self.state = state
+
+    def operacion_requerida(self) -> None:
+        print("Implementacion stateless")
+
+
+def main() -> None:
+
+    temp_stateless = TemplateImplementationStateless()
+    temp_statefull  = TemplateImplementationStateFull(state= "ESTADO")
+
+    
+    temp_stateless.template_method()
+    temp_statefull.template_method()
+
+main()
+
