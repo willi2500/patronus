@@ -6,9 +6,9 @@ import edu.it.model.Usuario;
 import edu.it.utiles.Util;
 
 public class ServicioDiscador implements Runnable {
-	private DiscadorDePotencia discador;
+	private Discador discador;
 	
-	public ServicioDiscador(DiscadorDePotencia discador) {
+	public ServicioDiscador(Discador discador) {
 		this.discador = discador;
 	}
 

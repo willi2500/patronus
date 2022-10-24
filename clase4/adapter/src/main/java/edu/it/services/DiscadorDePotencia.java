@@ -4,7 +4,7 @@ import edu.it.model.DatosLlamada;
 import edu.it.model.Usuario;
 import edu.it.utiles.Util;
 
-public class DiscadorDePotencia {
+public class DiscadorDePotencia implements Discador {
 	public DatosLlamada realizarLlamada(Usuario u) {
 		System.out.println("realizando la llamada ....");
 		Util.dormir();
