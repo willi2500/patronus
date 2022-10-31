@@ -1,22 +1,22 @@
 package edu.it;
 
-import java.util.Scanner;
-
-import edu.it.dto.Mensaje;
 import edu.it.dto.Suscriptor;
+import edu.it.services.Broker;
 import edu.it.services.MemoryBroker;
+import edu.it.services.actores.ActorDB;
 import edu.it.services.actores.ActorPrueba;
+import edu.it.services.actores.LogicaDecisionMulta;
+import edu.it.services.actores.SensorPermanente;
 
 public class App {
     public static void main(String[] args) throws Exception {
         System.out.println("Curso patrones - Bienvenidos");
         
-        MemoryBroker memoryBroker = new MemoryBroker();
-        memoryBroker.suscribe(new Suscriptor("edu.it.patronus.actormodel.actorprueba", new ActorPrueba()));
+        Broker broker = new MemoryBroker();
         
-        Scanner scn = new Scanner(System.in);
-        var line = scn.nextLine();
-        memoryBroker.enviarMensaje(new Mensaje("edu.it.patronus.actormodel.actorprueba", line));
-        
+        broker.suscribe(new Suscriptor("edu.it.patronus.actormodel.actorprueba", new ActorPrueba()));
+        broker.suscribe(new Suscriptor("edu.it.patronus.actormodel.sensorpermanente", new SensorPermanente()));
+        broker.suscribe(new Suscriptor("edu.it.patronus.actormodel.logicamulta", new LogicaDecisionMulta()));
+        broker.suscribe(new Suscriptor("edu.it.patronus.actormodel.actordb", new ActorDB()));
     }
 }
